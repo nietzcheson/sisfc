@@ -16,7 +16,7 @@
 	define('DB_HOST', 'localhost');
 	define('DB_USER', 'sisfc');
 	define('DB_PASS', 'sisfc');
-	define('DB_NAME', 'sisfc');
+	define('DB_NAME', 'sinergi2_sisfc');
 	// define('DB_USER', 'sinergi2_sisfc');
 	// define('DB_PASS', 'T{%0u8vOQ)@6');
 	// define('DB_NAME', 'sinergi2_sisfc');
