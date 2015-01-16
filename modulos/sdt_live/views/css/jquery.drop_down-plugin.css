@@ -1,0 +1,68 @@
+.head-drop-down{
+	background-color: #0080FF;
+  	color: #FFFFFF;
+	width: 16px;
+	height: 10px;
+	-webkit-border-radius: 2px 2px;  /* Safari  */
+  	-moz-border-radius: 2px 2px;     /* Firefox */
+}
+.conte-elements{
+	background-color: #FFFFFF;
+	border-radius: 2px 2px 2px 2px;
+	-moz-border-radius: 2px 2px 2px 2px;
+	-webkit-border-radius: 2px 2px 2px 2px;
+	border: 0px solid #000000;
+}
+.element-drop-down{
+  	color: #000000;
+}
+.element-selected{
+	color: #C0C0C0;
+}
+.element-drop-down:hover { 
+   color: #2DC2FB;
+}
+
+.rojo{
+	color: #ff0c04;
+ 
+}
+.rojo:hover{
+   color: #b20701;
+}
+.amarillo{
+  color: #ffff00;
+}
+.amarillo:hover{
+  
+  color: #e5d10c;
+}
+.azul{
+  
+  color: #0045bd;
+}
+.azul:hover{
+  color: #005dff;
+  
+}
+.verde{
+  color: #00ff04;
+}
+.verde:hover{
+  
+  color: #18ba0b;
+}
+
+/*.newTask{
+  color:#000000;
+}
+.newTask:hover{
+  color: #b0b0b0;
+}*/
+
+.gotodate{
+  width: 30px;
+  height: 15px;
+  color: black;
+  float: left;
+}

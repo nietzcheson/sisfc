@@ -1,0 +1,16 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+body {
+  background: #aaa;
+  font-size: 150%;
+}
+
+#wrap-contenido{
+  width: 1000px;
+  margin: auto;
+}

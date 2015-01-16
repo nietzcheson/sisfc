@@ -1,0 +1,27 @@
+<h2>Ultimo Post</h2>
+<?php
+	if(isset($this->posts) && count($this->posts))
+	{
+		echo "<table>";
+		for ($i=0; $i < count($this->posts); $i++) { 
+			echo '<tr>';
+			echo '<td>' . $this->posts[$i]['id'] . '</td>';
+			echo '<td>' . $this->posts[$i]['titulo'] . '</td>';
+			echo '<td>' . $this->posts[$i]['cuerpo'] . '</td>';
+			echo '<td><a href="' . BASE_URL . 'post/editar/' . $this->posts[$i]['id'] . '">Editar</td>';
+			echo '<td><a href="' . BASE_URL . 'post/eliminar/' . $this->posts[$i]['id'] . '">Eliminar</td>';
+			echo '</tr>';
+		}
+		echo "</table>";
+	}
+	else
+	{
+		echo '<p><strong>No hay post</p>';
+	}
+	if (isset($this->paginacion)) {
+		echo $this->paginacion;
+	}
+?>
+<?php if (Session::accesoView('usuario')): ?>
+	<p><a href="<?php BASE_URL; ?>post/nuevo">Agregar Post</a></p>
+<?php endif; ?>

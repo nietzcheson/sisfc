@@ -1,0 +1,17 @@
+
+
+<li class="dropdown">
+	<?php if (isset($menu)):?>
+	  	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $menu["titulo"]?> <b class="caret"></b></a>
+	  	<ul class="dropdown-menu">
+	  		<?php if (isset($menu["listado"])):?>
+	  			<?php foreach($menu["listado"] as $menu):?>
+		  			<?php if (isset($menu["divisor"])==true):?>
+			    		<li class="divider"></li>
+			    	<?php endif;?>
+			    	<li><a href="<?php echo $menu["enlace"];?>"><?php echo $menu["titulo"];?></a></li>
+			    <?php endforeach;?>
+	    	<?php endif;?>
+	  	</ul>
+  	<?php endif;?>
+</li>

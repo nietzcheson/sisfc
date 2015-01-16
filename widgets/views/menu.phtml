@@ -1,0 +1,30 @@
+<?php if (isset($menu) && count($menu)):?>
+	<ul class="nav nav-pills nav-stacked" style="max-width: 100%;">
+	<?php foreach($menu as $m):?>
+
+		<?php $_item_style = "";?>
+		<?php if(ID_ITEM==$m["id"]) $_item_style = "active"?>
+
+		<?php if(isset($m["submenu"]) && count($m["submenu"])):?>
+			<li class="dropdown <?php echo $_item_style?>">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <span class="glyphicon glyphicon-<?php if(isset($m['icono'])); echo $m['icono'];?>"></span> <?php echo $m["titulo"]?>  <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+			<?php foreach($m["submenu"] as $submenu):?>
+				<li><a href="<?php echo $submenu["enlace"]?>"><?php echo $submenu["titulo"]?></a></li>
+			<?php endforeach;?>
+			</ul>
+		</li>
+		<?php else:?>
+			<li class="<?php echo $_item_style?>">
+				<a href="<?php echo $m['enlace']?>">
+					<span class="glyphicon glyphicon-<?php if(isset($m['icono'])); echo $m['icono'];?>"></span> <?php echo $m["titulo"]?></a>
+				</a>
+			</li>
+		<?php endif;?>
+
+
+	<?php endforeach;?>
+	</ul>
+<?php endif;?>

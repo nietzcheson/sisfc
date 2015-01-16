@@ -1,0 +1,22 @@
+
+	<ul class="list-group">
+		<li class="list-group-item"><?php if(isset($marca)) echo $marca["nombre_marca"]?></li>
+		<li class="list-group-item">
+			<ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+				<?php if(isset($menu)):?>
+					<?php foreach($menu as $m):?>
+						<?php $_item_style = "";?>
+						<?php if(ID_ITEM==$m["id"]) $_item_style = "active-nav"?>
+						<li class="<?php echo $_item_style?>"><a href="<?php echo $m['enlace']?>"><?php echo $m["titulo"]?></a></li>
+					<?php endforeach;?>
+				<?php endif;?>
+			</ul>
+		</li>
+		<?php if(isset($menuExtra)):?>
+			<?php foreach($menuExtra as $menu):?>
+				<a class="list-group-item" id="btn_<?php echo $menu["id"]?>" href="<?php echo $menu["enlace"]?>" >
+					<span class="glyphicon glyphicon-<?php echo $menu["icono"]?>"></span>	<?php echo $menu["titulo"]?>
+				</a>
+			<?php endforeach;?>
+		<?php endif;?>
+	</ul>

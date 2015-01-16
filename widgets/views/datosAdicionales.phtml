@@ -1,0 +1,56 @@
+<div class="alert alert-warning" role="alert">
+	<strong>
+		Cada vez que agregues o quites un nuevo dato, presiona el botón
+		<span class="label label-primary">
+			<span class="glyphicon glyphicon-floppy-disk"></span> Guardar
+		</span> </strong>.
+		<br />Entre más datos podamos tener, más fácil nos será localizarte...
+</div>
+
+<div id="datos-adicionales">
+	<form id="form_id" action="" method="post">
+		<input type="hidden" name="datos_adicionales" value="1"/>
+
+		<div id="wrap-groups">
+			<?php if (isset($datos_adicionales)): ?>
+				<?php foreach($datos_adicionales as $adicional):?>
+					<div class="form-group">
+						<div class="col-md-6">
+							<input type="hidden" name="id_adicional[]" value="<?php echo $adicional['id']?>">
+							<select class="form-control" name="id_dato_[]">
+								<option value="x">Seleccione</option>
+								<?php if(isset($tipos_adicionales)):?>
+									<?php foreach($tipos_adicionales as $tipo):?>
+									<option value="<?php echo $tipo["id"]?>" <?php if($tipo["id"]==$adicional["id_tipodato"]) echo "selected"?> ><?php echo $tipo["dato_adicional"]?></option>
+									<?php endforeach;?>
+								<?php endif;?>
+							</select>
+						</div>
+						<div class="input-group">
+							<input class="form-control" value="<?php echo $adicional["dato"]?>" name="valor_dato_[]">
+							<span class="input-group-btn">
+								<button class="btn btn-default btn-remove" type="button">
+									<span class="glyphicon glyphicon-remove">
+									</span>
+								</button>
+							</span>
+						</div>
+					</div>
+				<?php endforeach;?>
+
+			<?php endif;?>
+
+		</div>
+
+	<div class="btn-group">
+		<button type="button" class="btn btn-warning" id="agregar-dato">
+			<span class="glyphicon glyphicon-plus"></span>
+			Agregar
+		</button>
+		<button type="submit" class="btn btn-primary disabled" id="save-adicional">
+			<span class="glyphicon glyphicon-floppy-disk"></span>
+			Guardar
+		</button>
+	</div>
+	</form>
+</div>
