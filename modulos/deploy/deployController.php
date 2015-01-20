@@ -8,8 +8,9 @@
 		}
 		public function index(){
 
-			//Alter table de la base de datos
-			echo $this->_modelo->deploy();
+
+			$this->_view->assign("deploy", $this->_modelo->deploy());
+			$this->_view->renderizar('deploy',"");
 
 		}
 	}

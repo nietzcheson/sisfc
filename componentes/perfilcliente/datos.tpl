@@ -8,7 +8,7 @@
       {if isset($empresas)}
         {foreach from=$empresas item=empresa}
           {foreach from=empresasFC item=empFC}
-          <option value="{$empresa.id_empresa}" {if isset($empresa.enDB)=="x"}selected{/if}>{$empresa.nombre_empresa}</option>
+          <option value="{$empresa.id}" {if isset($empresa.enDB)=="x"}selected{/if}>{$empresa.empresa}</option>
           {/foreach}
         {/foreach}
       {/if}
@@ -116,7 +116,7 @@
         <option>Seleccione</option>
         {if isset($paises)}
           {foreach item=tipo from=$paises}
-            <option value="{$tipo.id_pais}" {if isset($datos.pais_prospecto)}{if $tipo.id_pais== $datos.pais_prospecto} selected="selected" {/if}{/if}>{$tipo.nombre_pais}</option>
+            <option value="{$tipo.id}" {if isset($datos.pais_prospecto)}{if $tipo.id== $datos.pais_prospecto} selected="selected" {/if}{/if}>{$tipo.pais}</option>
           {/foreach}
         {else}
           <option>No existen clasificaciones</option>
