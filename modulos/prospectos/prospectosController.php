@@ -16,9 +16,17 @@
 					"enlace" => "prospectos/crear_prospecto"
 				)
 			);
+
+			$prospectos = $this->_prospectos->getProspectos();
+
+			for($i=0;$i<count($prospectos);$i++){
+				$calificacion = $this->_prospectos->getCalificacion($prospectos[$i]["id"]);
+				$prospectos[$i]["calificacion_porcentaje"] = $calificacion["calificacion_porcentaje"];
+			}
+
 			$this->_view->assign("btnHeader",$btnHeader);
 			$this->_view->setJs(array('index'));
-			$this->_view->assign("datos",$this->_prospectos->getProspectos());
+			$this->_view->assign("datos",$prospectos);
 			$this->_view->renderizar('index',"clientes");
 		}
 
@@ -48,24 +56,29 @@
 				exit();
 			}
 
-			$empresasFC = function() use($id){
-				$empresas = $this->_prospectos->empresasFC();
+			$prospecto = $this->_prospectos->getProspecto($id);
 
-				$getEmpresas = $this->_prospectos->getEmpresasFC($id);
+			$prospecto["empresas"] = array();
 
-				for($i=0;$i<count($empresas);$i++){
-					for($e=0;$e<count($getEmpresas);$e++){
-						if($getEmpresas[$e]["id_empresa"]==$empresas[$i]["id_empresa"]){
-							$empresas[$i]["enDB"] = "x";
-						}
+			$empresas = $this->_prospectos->empresasFC();
+			$empresasProspecto = $this->_prospectos->getEmpresa($id);
+
+			for($i=0;$i<count($empresas);$i++){
+
+				$select = 0;
+				for($e=0;$e<count($empresasProspecto);$e++){
+
+					if($empresas[$i]["id"]==$empresasProspecto[$e]["empresa_id"]){
+						$select = 1;
 					}
-
 				}
-				$this->_view->assign("empresas",$empresas);
-				$this->_view->assign("empresasFC",$getEmpresas);
-			};
 
-			$empresasFC();
+				$prospecto["empresas"][$i] = array(
+					"id" => $empresas[$i]["id"],
+					"empresa" => $empresas[$i]["empresa"],
+					"seleccionado" => $select
+				);
+			}
 
 			$this->_view->setJs(array('ajax'));
 			$this->_view->assign('datos_perfil', ROOT . 'componentes/perfilcliente/datos.tpl');
@@ -73,6 +86,9 @@
 			$this->_view->assign('calificacion_perfil', ROOT . 'componentes/perfilcliente/calificacion.tpl');
 
 			$calificacion = $this->_prospectos->getCalificacion($id);
+			$this->_view->assign('calificacion',$calificacion);
+
+
 			$tiposDatos = $this->_prospectos->getTiposDatos();
 
 			$this->_view->assign("tiposDatos",$tiposDatos);
@@ -85,7 +101,7 @@
 				$id_datos_adicionales[$i] = $datos_adicionales[$i]["id"];
 			}
 
-			$this->_view->assign('calificacion',$calificacion);
+
 
 			$this->_view->assign('titulo','Perfil del prospecto');
 			$btnHeader = array(
@@ -105,22 +121,18 @@
 			$this->_view->assign("campanas",$this->_prospectos->getCampanas());
 			$this->_view->assign("segmentos",$this->_prospectos->getSegmentos());
 
-			$datos = $this->_prospectos->getProspecto($id);
-			$this->_view->assign("datos",$datos);
-
-
-			if($datos["s_referencias"]=="1")
+			if($prospecto["s_referencias"]=="1")
 			{
 				$referencias = $this->_prospectos->getInternos();
 				$this->_view->assign("referencias",$referencias);
 			}
 
-			if($datos["s_referencias"]=="2")
+			if($prospecto["s_referencias"]=="2")
 			{
 				$referencias = array("x");
 				$this->_view->assign("referencias",$referencias);
 			}
-			if ($datos["s_referencias"]=="3")
+			if ($prospecto["s_referencias"]=="3")
 			{
 				$referencias = $this->_prospectos->getEmpresas();
 				$this->_view->assign("referencias",$referencias);
@@ -268,21 +280,36 @@
 
 				}
 
+
 				$datosEnviar = array(
-					"id_u_prospecto"=>$id,
-					"nombre_prospecto"=>$nombre_prospecto,
-					"apellido_prospecto"=>$apellido_prospecto,
-					"telefono_prospecto"=>$telefono_prospecto,
-					"email_prospecto"=>$email_prospecto,
-					"pais_prospecto"=>$pais_prospecto,
-					"estado_prospecto"=>$estado_prospecto,
-					"ciudad_prospecto"=>$ciudad_prospecto,
-					"campana_prospecto"=>$campana_prospecto,
-					"segmento_prospecto"=>$segmento_prospecto,
-					"s_referencias"=>$s_referencias,
-					"referencia_prospecto"=>$referencia_prospecto,
-					"fecha_actualizacion"=>DATE_NOW
+					"id" => $id,
+					"pais_id" => $pais_prospecto,
+					"campana_id" => $campana_prospecto,
+					"segmento_id" => $segmento_prospecto,
+					"id_u_prospecto" => "",
+					"rol_prospecto" => "prospecto",
+					"secs_pass" => "",
+					"primercontacto" => 1,
+					"nombre_prospecto" => $nombre_prospecto,
+					"apellido_prospecto" => $apellido_prospecto,
+					"id_estatus" => 1,
+					"telefono_prospecto" => $telefono_prospecto,
+					"celular_prospecto" => $celular_prospecto,
+					"email_prospecto" => $email_prospecto,
+					"pais_prospecto" => NULL,
+					"estado_prospecto" => $estado_prospecto,
+					"ciudad_prospecto" => $ciudad_prospecto,
+					"origen_prospecto" => NULL,
+					"campana_prospecto" => NULL,
+					"segmento_prospecto" => NULL,
+					"s_referencias" => $s_referencias,
+					"referencia_prospecto" => $referencia_prospecto,
+					"fecha_registro" => DATE_NOW,
+					"creador" => 'actualizador',
+					"fecha_actualizacion" => DATE_NOW,
+					"actualizador" => 'actualizador',
 				);
+
 				$this->_prospectos->actualizarProspecto($datosEnviar);
 				$datos = $this->_prospectos->getProspecto($id);
 				$this->_view->assign("datos",$datos);
@@ -325,31 +352,39 @@
 
 				if(isset($_POST["empresas"])){
 					$empresas = $_POST["empresas"];
-					foreach($empresas as $empresa=>$key){
+
+					foreach($empresas as $empresa){
+						$idEmpresa = (int) $empresa;
+
 						$datosEnviar = array(
-							"id_prospecto" => $id,
-							"id_empresa" => $key
+							"id" => NULL,
+							"id_prospecto" => "",
+							"id_empresa" => "",
+							"empresa_id" => $idEmpresa,
+							"prospecto_id" => $id
 						);
 
 						$this->_prospectos->setEmpresasFC($datosEnviar);
 					}
 				}
 
-
-				$empresasFC();
-
-
 				$datos_adicionales = $this->_prospectos->getDatosAdicionales($id);
 
 				$this->_view->assign("datos_adicionales",$datos_adicionales);
 
-				$this->_view->assign("_mensaje","Los datos personales del prospecto han sido actualizados");
+
+				$this->redireccionar('prospectos/perfil_prospecto/'.$id);
+				exit();
 		}
 
+
+			$this->_view->assign("datos",$prospecto);
 			$this->_view->renderizar('perfil_prospecto',"clientes");
+			exit();
 		}
 
 		public function crear_prospecto(){//
+
 
 			//$this->_view->assign('datos_adicionales', $this->_view->widget('datosAdicionales', 'getDatos',array($id_marca)));
 			$this->_view->assign('w_perfil', $this->_view->widget('perfilCliente', 'getPerfil'));
@@ -365,6 +400,7 @@
 				)
 			);
 
+			$this->_view->assign("crear_prospecto",1);
 
 			$empresasFC = function(){
 				$empresas = $this->_prospectos->empresasFC();
@@ -377,10 +413,9 @@
 			$this->_view->assign("paises",$this->_prospectos->getPaises());
 			$this->_view->assign("campanas",$this->_prospectos->getCampanas());
 			$this->_view->assign("segmentos",$this->_prospectos->getSegmentos());
+
 			if ($this->getInt('prospecto_lead')=="1")
 			{
-
-
 				$this->_view->assign("datos",$_POST);
 
 				$datosAdicionales = "";
@@ -486,28 +521,57 @@
 					exit;
 				}
 				$id_u=$this->_prospectos->getUsuario_sisfcId(Session::get('id_usuario'));
+
 				$datosEnviar = array(
-					"id_u_prospecto"=>"dummy",
-					"rol_prospecto"=>"prospecto",
-					"nombre_prospecto"=>$nombre_prospecto,
-					"apellido_prospecto"=>$apellido_prospecto,
-					"telefono_prospecto"=>$telefono_prospecto,
-					"celular_prospecto"=>$celular_prospecto,
-					"email_prospecto"=>$email_prospecto,
-					"web_prospecto"=>$web_prospecto,
-					"pais_prospecto"=>$pais_prospecto,
-					"estado_prospecto"=>$estado_prospecto,
-					"ciudad_prospecto"=>$ciudad_prospecto,
-					"campana_prospecto"=>$campana_prospecto,
-					"segmento_prospecto"=>$segmento_prospecto,
-					"s_referencias"=>$s_referencias,
-					"referencia_prospecto"=>$referencia_prospecto,
-					"fecha_registro"=>DATE_NOW,
-					"creador"=>$id_u["id_u_usuario"]
+					"id" => NULL,
+					"pais_id" => $pais_prospecto,
+					"campana_id" => $campana_prospecto,
+					"segmento_id" => $segmento_prospecto,
+					"id_u_prospecto" => "",
+					"rol_prospecto" => "prospecto",
+					"secs_pass" => "",
+					"primercontacto" => 1,
+					"nombre_prospecto" => $nombre_prospecto,
+					"apellido_prospecto" => $apellido_prospecto,
+					"id_estatus" => 1,
+					"telefono_prospecto" => $telefono_prospecto,
+					"celular_prospecto" => $celular_prospecto,
+					"email_prospecto" => $email_prospecto,
+					"pais_prospecto" => NULL,
+					"estado_prospecto" => $estado_prospecto,
+					"ciudad_prospecto" => $ciudad_prospecto,
+					"origen_prospecto" => NULL,
+					"campana_prospecto" => NULL,
+					"segmento_prospecto" => NULL,
+					"s_referencias" => $s_referencias,
+					"referencia_prospecto" => $referencia_prospecto,
+					"fecha_registro" => DATE_NOW,
+					"creador" => $id_u["id"],
+					"fecha_actualizacion" => "",
+					"actualizador" => "",
 				);
-				$this->_prospectos->crearProspecto($datosEnviar);
-				$id = $this->_prospectos->ultimoProspecto();
-				$id_prospecto = strtoupper(substr($id["nombre_prospecto"],0,2)).$id["id_prospecto"];
+
+				$lastId = $this->_prospectos->crearProspecto($datosEnviar);
+
+				if(isset($_POST["empresas"])){
+
+					$empresas = $_POST["empresas"];
+					foreach($empresas as $empresa){
+						$idEmpresa = (int) $empresa;
+
+						$datosEnviar = array(
+							"id" => NULL,
+							"id_prospecto" => "",
+							"id_empresa" => "",
+							"empresa_id" => $idEmpresa,
+							"prospecto_id" => $lastId["id"]
+						);
+
+						$this->_prospectos->setEmpresasFC($datosEnviar);
+					}
+				}
+
+
 
 				if($datosAdicionales!=""){
 					foreach($datosAdicionales as $datos){
@@ -515,7 +579,7 @@
 						if($datos["selects"]!="x" || $datos["inputs"]!=""){
 
 							$datosEnviar = array(
-								"id_prospecto" => $id_prospecto,
+								"id_prospecto" => $lastId["id"],
 								"id_tipodato" => $datos["id_tipodato"],
 								"dato" =>	$datos["dato"],
 							);
@@ -525,16 +589,12 @@
 					}
 				}
 
-
-				$datosEnviar = array(
-					"id_prospecto"=>$id["id_prospecto"],
-					"id_u_prospecto"=>$id_prospecto
-				);
-
-				$this->_prospectos->actualizarProspecto($datosEnviar);
 				$this->_view->assign("datos","");
 				$this->_view->assign("_mensaje","El prospecto ha sido creado");
 
+				$this->redireccionar("prospectos/perfil_prospecto/".$lastId["id"]);
+
+				exit();
 				$btnHeader = array(
 
 					array(
@@ -544,7 +604,7 @@
 
 					array(
 						"titulo" => "Calificar prospecto",
-						"enlace" => "calificacion/calificar/".$id_prospecto."/1",
+						"enlace" => "calificacion/calificar/".$lastId["id"]."/1",
 						"estilo" => "danger"
 					),
 
@@ -554,22 +614,6 @@
 					)
 				);
 				$this->_view->assign("btnHeader",$btnHeader);
-
-
-				$empresas = $_POST["empresas"];
-
-				//Eliminar empresas relacionadas
-
-				$this->_prospectos->eliminarEmpresasFC($id_prospecto);
-
-				foreach($empresas as $empresa=>$key){
-					$datosEnviar = array(
-						"id_prospecto" => $id_prospecto,
-						"id_empresa" => $key
-					);
-
-					$this->_prospectos->setEmpresasFC($datosEnviar);
-				}
 
 			}
 			$this->_view->renderizar('crear_prospecto',"clientes");

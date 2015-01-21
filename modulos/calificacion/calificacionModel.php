@@ -10,7 +10,7 @@ class calificacionModel extends Model
 
   public function getCalificacion($id)
   {
-    $calificacion = $this->_db->query("SELECT * FROM calificacion_prospecto WHERE id_u_prospecto='{$id}'");
+    $calificacion = $this->_db->query("SELECT * FROM calificacion_prospecto WHERE prospecto_id='{$id}'");
     return $calificacion->fetch();
   }
 

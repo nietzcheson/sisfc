@@ -13,6 +13,7 @@ class calificacionController extends Controller
   public function index(){}
 
   public function calificar($id_perfil,$tipo_perfil){
+
     $this->_view->assign("titulo","Calificación Prospecto");
 
 
@@ -58,11 +59,17 @@ class calificacionController extends Controller
     $this->_view->assign("calificar",$calificacion_prospecto);
 
     $existe_calificacion = 0;
+    $id_calificacion = 0;
+
     $datos_calificacion = "";
 
     if(count($calificacion_prospecto)!=1){
       $existe_calificacion = 1;
+
+
       $datos_calificacion = $this->_modelo->getCalificacion($id_perfil);
+      $id_calificacion = $datos_calificacion["id"];
+
       $this->_view->assign("volumen_carga",$datos_calificacion["volumen_carga"]);
       $this->_view->assign("barra_carga",$datos_calificacion["calificacion_porcentaje"]);
 
@@ -84,7 +91,6 @@ class calificacionController extends Controller
 
       $this->_view->assign("calificar",$_POST);
 
-
       $importa_exporta = $this->getInt("importa_exporta");
       $padron = $this->getInt("padron");
       $departamento = $this->getInt("departamento");
@@ -93,7 +99,6 @@ class calificacionController extends Controller
       $volumen_carga = $this->getInt("volumen_carga");
 
       $forzada = $this->getInt("forzada");
-
 
       $textarea_forzado = "";
       $this->_view->assign("forzada",$forzada);
@@ -287,27 +292,80 @@ class calificacionController extends Controller
 
       $this->_view->assign("barra_carga",$calificacion);
 
-      $datosEnviar = array(
-        "id_u_prospecto"            =>$id_perfil,
-        "importa_exporta"           =>$importa_exporta,
-        "padron"                    =>$padron,
-        "departamento"              =>$departamento,
-        "volumen"                   =>$volumen,
-        "volumen_carga"             =>$volumen_carga,
-        "listado"                   =>$listado,
-        "forzada"                   =>$forzada,
-        "explicacion_forzada"       =>$textarea_forzado,
-        "calificacion_porcentaje"   =>$calificacion,
-        "fecha_creacion"            =>DATE_NOW,
-      );
+
+
+      // $datosEnviar = array(
+      //   "id"                        => NULL,
+      //   "prospecto_id"              => $id_perfil,
+      //   "id_u_prospecto"            => NULL,
+      //   "importa_exporta"           =>$importa_exporta,
+      //   "padron"                    =>$padron,
+      //   "departamento"              =>$departamento,
+      //   "volumen"                   =>$volumen,
+      //   "volumen_carga"             =>$volumen_carga,
+      //   "listado"                   =>$listado,
+      //   "forzada"                   =>$forzada,
+      //   "explicacion_forzada"       =>$textarea_forzado,
+      //   "calificacion_porcentaje"   =>$calificacion,
+      //   "fecha_creacion"            =>DATE_NOW,
+      //   "creador"                   =>"",
+      //   "fecha_actualizacion"       =>"",
+      //   "actualizador"              =>"",
+      //   "tipo_consumo"              =>""
+      // );
 
       $mensaje_calificacion = "";
 
 
       if($existe_calificacion==0){
+
+        $datosEnviar = array(
+          "id"                        => NULL,
+          "prospecto_id"              => $id_perfil,
+          "id_u_prospecto"            => "",
+          "importa_exporta"           => $importa_exporta,
+          "padron"                    => $padron,
+          "departamento"              => $departamento,
+          "volumen"                   => $volumen,
+          "volumen_carga"             => $volumen_carga,
+          "listado"                   => $listado,
+          "que_productos"             => "",
+          "forzada"                   => $forzada,
+          "explicacion_forzada"       => $textarea_forzado,
+          "calificacion_porcentaje"   => $calificacion,
+          "fecha_creacion"            => DATE_NOW,
+          "creador"                   => "",
+          "fecha_actualizacion"       => "",
+          "actualizador"              => "",
+          "tipo_consumo"              => 1
+        );
+
         $this->_modelo->calificarProspecto($datosEnviar);
+
         $mensaje_calificacion = "Se ha calificado el prospecto";
       }else if($existe_calificacion==1){
+
+        $datosEnviar = array(
+          "id"                        => $id_calificacion,
+          "prospecto_id"              => $id_perfil,
+          "id_u_prospecto"            => "",
+          "importa_exporta"           => $importa_exporta,
+          "padron"                    => $padron,
+          "departamento"              => $departamento,
+          "volumen"                   => $volumen,
+          "volumen_carga"             => $volumen_carga,
+          "listado"                   => $listado,
+          "que_productos"             => "",
+          "forzada"                   => $forzada,
+          "explicacion_forzada"       => $textarea_forzado,
+          "calificacion_porcentaje"   => $calificacion,
+          "fecha_creacion"            => DATE_NOW,
+          "creador"                   => "",
+          "fecha_actualizacion"       => "",
+          "actualizador"              => "",
+          "tipo_consumo"              => 1
+        );
+
         $this->_modelo->actualizarCalificacion($datosEnviar);
         $mensaje_calificacion = "Se han actualizado los datos de calificación";
       }

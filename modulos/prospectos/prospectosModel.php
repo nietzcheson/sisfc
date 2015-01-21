@@ -11,23 +11,26 @@
 		}
 		public function getProspectos()//
 		{
-	    $prospectos = $this->_db->query(
-			"SELECT p.id_u_prospecto,nombre_prospecto,apellido_prospecto, fecha_registro, cp.calificacion_porcentaje
-			FROM prospectos p LEFT JOIN calificacion_prospecto cp
-			ON p.id_u_prospecto = cp.id_u_prospecto
-			WHERE rol_prospecto = 'prospecto'
-			ORDER BY nombre_prospecto
-			ASC");
+	    // $prospectos = $this->_db->query(
+			// "SELECT *
+			// FROM prospectos p LEFT JOIN calificacion_prospecto cp
+			// ON p.id_u_prospecto = cp.id_u_prospecto
+			// WHERE rol_prospecto = 'prospecto'
+			// ORDER BY nombre_prospecto
+			// ASC");
+
+			$prospectos = $this->_db->query("SELECT * FROM prospectos WHERE rol_prospecto='prospecto'");
+
 			return $prospectos->fetchAll();
 	  }
 	    public function getProspecto($id)//
 		{
-	    	$empresa = $this->_db->query("SELECT * FROM prospectos WHERE id_u_prospecto = '$id'");
+	    	$empresa = $this->_db->query("SELECT * FROM prospectos WHERE id = '$id'");
 			return $empresa->fetch();
 	    }
 	    public function getCalificacion($id)//
 		{
-	    	$calificacion = $this->_db->query("SELECT * FROM calificacion_prospecto WHERE id_u_prospecto = '$id'");
+	    	$calificacion = $this->_db->query("SELECT * FROM calificacion_prospecto WHERE prospecto_id = '$id'");
 			return $calificacion->fetch();
 	    }
 	    public function getContacto($id)//
@@ -47,22 +50,27 @@
 	    }
 	    public function getSegmentos()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM segmentos ORDER BY nombre_segmento ASC");
+	        $empresa = $this->_db->query("SELECT * FROM segmentos ORDER BY segmento ASC");
 			return $empresa->fetchAll();
 	    }
 	    public function getInternos()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM usuarios_sisfc ORDER BY nombre_usuario ASC");
+	        $empresa = $this->_db->query("SELECT * FROM usuarios ORDER BY usuario ASC");
 			return $empresa->fetchAll();
 	    }
+
 	    public function getEmpresas()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM marcas ORDER BY nombre_marca ASC");
-			return $empresa->fetchAll();
+	        $empresa = $this->_db->query("SELECT * FROM marcas ORDER BY cliente ASC");
+					return $empresa->fetchAll();
 	    }
 	    public function crearProspecto($datosEnviar)//
 	    {
 	    	$this->insertarSQL($datosEnviar,"prospectos");
+
+				$lastId = $this->_db->query("SELECT id FROM prospectos ORDER BY id DESC LIMIT 1");
+				return $lastId->fetch();
+
 	    }
 	    public function crearCalificacion($datosEnviar)//
 	    {
@@ -81,12 +89,12 @@
 	        $post = $this->_db->query("DELETE FROM prospectos WHERE id_u_prospecto = '$id'");
 	    }
 	    public function ultimoProspecto(){//
-	        $campanas = $this->_db->query("SELECT id_prospecto, nombre_prospecto FROM prospectos ORDER BY id_prospecto DESC LIMIT 1");
+	        $campanas = $this->_db->query("SELECT id, nombre_prospecto FROM prospectos ORDER BY id DESC LIMIT 1");
 	        return $campanas->fetch();
 	    }
 	    public function getUsuario_sisfcId($id){//
 			$usuarios_sisfc = $this->_db->query(
-                "SELECT id_u_usuario FROM usuarios_sisfc WHERE id_usuario = $id"
+                "SELECT id FROM usuarios WHERE id = $id"
                 );
         	return $usuarios_sisfc->fetch();
 		}
@@ -141,7 +149,7 @@
 
 		public function eliminarEmpresasFC($id)//
 		{
-				$empresas = $this->_db->query("DELETE FROM empresas_prospectos WHERE id_prospecto = '$id'");
+				$empresas = $this->_db->query("DELETE FROM empresas_prospectos WHERE prospecto_id = '$id'");
 		}
 
 		public function setEmpresasFC($datosEnviar)
@@ -149,9 +157,10 @@
 			$this->insertarSQL($datosEnviar,"empresas_prospectos");
 		}
 
-		public function getEmpresasFC($id)
+		public function getEmpresa($id)
 		{
-			$empresas = $this->_db->query("SELECT * FROM empresas_prospectos WHERE id_prospecto='$id'");
+
+			$empresas = $this->_db->query("SELECT * FROM empresas_prospectos WHERE prospecto_id='$id'");
 
 			return $empresas->fetchAll(PDO::FETCH_ASSOC);
 		}

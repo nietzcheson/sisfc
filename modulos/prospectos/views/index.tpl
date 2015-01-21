@@ -10,7 +10,7 @@
   		<tbody>
         {if isset($datos)}
           {foreach item=dato from=$datos}
-      			<tr id="tr_{$dato.id_u_prospecto}">
+      			<tr id="tr_{$dato.id}">
       				<td class="col-md-4">{$dato.nombre_prospecto} {$dato.apellido_prospecto}</td>
               <td class="col-md-4">{$dato.fecha_registro}</td>
 							<td class="col-md-2">
@@ -25,10 +25,10 @@
 							</td>
       				<td class="text-right">
                 <div class="btn-group">
-                    <a class="btn btn-default" href="{$_layoutParams.root}prospectos/perfil_prospecto/{$dato.id_u_prospecto}">
+                    <a class="btn btn-default" href="{$_layoutParams.root}prospectos/perfil_prospecto/{$dato.id}">
                       <span class="glyphicon glyphicon-{$_layoutParams.icon_view}"></span>
                     </a>
-                  <button type="button" class="btn btn-default" id="b-eliminar_{$dato.id_u_prospecto}">
+                  <button type="button" class="btn btn-default" id="b-eliminar_{$dato.id}">
                     <span class="glyphicon glyphicon-{$_layoutParams.icon_remove}"></span>
                   </button>
                 </div>

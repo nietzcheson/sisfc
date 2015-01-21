@@ -69,6 +69,8 @@
 			$this->updateSchemaToFKey("empresas_prospectos",false,"id_empresa", "empresa_id");
 			$this->updateSchemaToFKey("prospectos",array("tabla"=>"pais", "col" => "id"),"pais_prospecto", "pais_id");
 			$this->updateSchemaToFKey("prospectos",false,"campana_prospecto", "campana_id");
+			$this->updateSchemaToFKey("calificacion_prospecto",array("tabla"=>"prospectos", "col" => "id_u_prospecto"),"id_u_prospecto", "prospecto_id");
+
 
 			return $this->_table;
 		}

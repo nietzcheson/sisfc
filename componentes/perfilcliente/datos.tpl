@@ -1,18 +1,28 @@
-
-
 <form role="form" method="POST" action="">
   <input type="hidden" name="prospecto_lead" value="1" />
   <div class="form-group col-md-12">
     <label for="nombre_prospecto">Seleccione la empresa<span class="obligatorio">*</span></label>
+
+    {if isset($crear_prospecto)}
     <select data-placeholder="Seleccione la empresa" style="width:100%;" multiple class="form-control chosen-select" name="empresas[]">
       {if isset($empresas)}
-        {foreach from=$empresas item=empresa}
-          {foreach from=empresasFC item=empFC}
-          <option value="{$empresa.id}" {if isset($empresa.enDB)=="x"}selected{/if}>{$empresa.empresa}</option>
-          {/foreach}
-        {/foreach}
+      {foreach from=$empresas item=empresa}
+      <option value="{$empresa.id}" {if $empresa.seleccionado==1}selected{/if}>{$empresa.empresa}</option>
+      {/foreach}
       {/if}
     </select>
+    {else}
+    <select data-placeholder="Seleccione la empresa" style="width:100%;" multiple class="form-control chosen-select" name="empresas[]">
+      {if isset($datos.empresas)}
+      {foreach from=$datos.empresas item=empresa}
+      <option value="{$empresa.id}" {if $empresa.seleccionado==1}selected{/if}>{$empresa.empresa}</option>
+      {/foreach}
+      {/if}
+    </select>
+
+    {/if}
+
+
   </div>
     <div class="form-group {if isset($perfil_lead)}col-md-6{else}col-md-6{/if}">
       <label for="nombre_prospecto">Nombre Prospecto<span class="obligatorio">*</span></label>
@@ -116,7 +126,7 @@
         <option>Seleccione</option>
         {if isset($paises)}
           {foreach item=tipo from=$paises}
-            <option value="{$tipo.id}" {if isset($datos.pais_prospecto)}{if $tipo.id== $datos.pais_prospecto} selected="selected" {/if}{/if}>{$tipo.pais}</option>
+            <option value="{$tipo.id}" {if isset($datos.pais_id)}{if $tipo.id== $datos.pais_id} selected="selected" {/if}{/if}>{$tipo.pais}</option>
           {/foreach}
         {else}
           <option>No existen clasificaciones</option>
@@ -138,7 +148,7 @@
         <option>Seleccione</option>
         {if isset($campanas)}
           {foreach item=tipo from=$campanas}
-            <option value="{$tipo.id_campana}" {if isset($datos.campana_prospecto)}{if $tipo.id_campana== $datos.campana_prospecto} selected="selected" {/if}{/if}>{$tipo.nombre_campana}</option>
+            <option value="{$tipo.id}" {if isset($datos.campana_id)}{if $tipo.id== $datos.campana_id} selected="selected" {/if}{/if}>{$tipo.campana}</option>
           {/foreach}
         {else}
           <option>No existen campañas</option>
@@ -151,7 +161,7 @@
         <option>Seleccione</option>
         {if isset($segmentos)}
           {foreach item=tipo from=$segmentos}
-            <option value="{$tipo.id_u_segmento}" {if isset($datos.segmento_prospecto)}{if $tipo.id_u_segmento== $datos.segmento_prospecto} selected="selected" {/if}{/if}>{$tipo.nombre_segmento}</option>
+            <option value="{$tipo.id}" {if isset($datos.segmento_id)}{if $tipo.id== $datos.segmento_id} selected="selected" {/if}{/if}>{$tipo.segmento}</option>
           {/foreach}
         {else}
           <option>No existen países</option>
@@ -175,11 +185,11 @@
         <option>Seleccione</option>
           {foreach from=$referencias item=referencia}
             {if $datos.s_referencias==1}
-              <option value="{$referencia.id_u_usuario}" {if isset($datos.referencia_prospecto)}{if $referencia.id_u_usuario == $datos.referencia_prospecto} selected="selected" {/if}{/if}>{$referencia.nombre_usuario} {$referencia.p_apellido_usuario}</option>
+              <option value="{$referencia.id}" {if isset($datos.referencia_prospecto)}{if $referencia.id == $datos.referencia_prospecto} selected="selected" {/if}{/if}>{$referencia.nombre}</option>
             {else if $datos.s_referencias==2}
               <option value="x" {if isset($datos.referencia_prospecto)}{if $referencia === 'x'} selected="selected" {/if}{/if}>No referenciado</option>
             {else if $datos.s_referencias==3}
-              <option value="{$referencia.id_u_marca}" {if isset($datos.referencia_prospecto)}{if $referencia.id_u_marca== $datos.referencia_prospecto} selected="selected" {/if}{/if}>{$referencia.nombre_marca}</option>
+              <option value="{$referencia.id}" {if isset($datos.referencia_prospecto)}{if $referencia.id== $datos.referencia_prospecto} selected="selected" {/if}{/if}>{$referencia.cliente}</option>
             {/if}
           {/foreach}
         {else}

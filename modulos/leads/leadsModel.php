@@ -64,12 +64,12 @@
 	    }
 	    public function getInternos()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM usuarios_sisfc ORDER BY nickname_usuario ASC");
+	        $empresa = $this->_db->query("SELECT * FROM usuarios ORDER BY usuario ASC");
 			return $empresa->fetchAll();
 	    }
 	    public function getEmpresas()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM marcas ORDER BY nombre_marca ASC");
+	        $empresa = $this->_db->query("SELECT * FROM marcas ORDER BY cliente ASC");
 			return $empresa->fetchAll();
 	    }
 	    public function crearProspecto($datosEnviar)//

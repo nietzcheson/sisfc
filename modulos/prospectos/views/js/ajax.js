@@ -4,7 +4,7 @@ $(document).ready(function() {
     var getInternas = function(){
         $.post(_root_+'/leads/getInternas','interna=1',function(datos){
             for(var i = 0; i < datos.length; i++){
-                $("#referencia_prospecto").append('<option value="' + datos[i].id_u_usuario + '">' + datos[i].nombre_usuario + ' ' +datos[i].p_apellido_usuario+'</option>');
+                $("#referencia_prospecto").append('<option value="' + datos[i].id + '">' + datos[i].nombre+'</option>');
             }
             $('#referencia_prospecto').removeAttr('disabled');
         }, 'json');
@@ -18,7 +18,7 @@ $(document).ready(function() {
     var getEmpresas = function(){
       $.post(server+'/leads/getEmpresas','empresa=1',function(datos){
           for(var i = 0; i < datos.length; i++){
-              $("#referencia_prospecto").append('<option value="' + datos[i].id_u_marca + '">' + datos[i].nombre_marca + '</option>');
+              $("#referencia_prospecto").append('<option value="' + datos[i].id + '">' + datos[i].cliente + '</option>');
           }
           $('#referencia_prospecto').removeAttr('disabled');
       }, 'json');
