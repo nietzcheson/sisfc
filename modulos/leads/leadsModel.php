@@ -34,7 +34,7 @@
 
 	    public function getProspectoLead($id)//
 		{
-	    	$empresa = $this->_db->query("SELECT * FROM prospectos WHERE rol_prospecto = 'lead' AND id_u_prospecto = '$id'");
+	    	$empresa = $this->_db->query("SELECT * FROM prospectos WHERE rol_prospecto = 'lead' AND id = '$id'");
 			return $empresa->fetch();
 	    }
 	    public function getCalificacion($id)//

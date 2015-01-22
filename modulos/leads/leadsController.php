@@ -99,6 +99,10 @@
 				exit();
 			}
 
+			$prospecto = $this->_view->widget('prospecto', 'getProspecto',array($id));
+
+			$this->_view->assign("prospecto",$prospecto);
+
 			$empresasFC = function() use($id){
 				$empresas = $this->_leads->empresasFC();
 

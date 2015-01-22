@@ -1,0 +1,102 @@
+<form role="form" method="POST" action="">
+  <input type="hidden" name="prospecto_lead" value="1" />
+
+  <div class="form-group col-md-12">
+    <label for="nombre_prospecto">Empresas<span class="obligatorio">*</span></label>
+    <select data-placeholder="Seleccione la empresa" style="width:100%;" multiple class="form-control chosen-select" name="empresas[]">
+      <?php echo count($empresas);?>
+      <?php foreach($empresas as $empresa): ?>
+      <option value="<?php echo $empresa["id"];?>" <?php if($empresa["seleccionado"]==1) echo "selected";?>><?php echo $empresa["nombre"];?></option>
+    <?php endforeach;?>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="nombre_prospecto">Nombre Prospecto<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="nombre_prospecto" name="nombre_prospecto" placeholder="Nombre del Prospecto" value="<?php echo $nombre_prospecto;?>">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="apellido_prospecto">Apellido Prospecto<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="apellido_prospecto" name="apellido_prospecto" placeholder="Apellido del Prospecto" value="<?php echo $apellido_prospecto;?>">
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="apellido_prospecto">Estatus<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="id_estatus" id="id_estatus">
+      <option value="Seleccione">Seleccione</option>
+      <?php foreach($estatus as $estatu):?>
+      <option value="<?php echo $estatu["id"];?>" <?php if($estatu["seleccionado"]==1) echo "selected";?> ><?php echo $estatu["nombre"];?></option>
+      <?php endforeach;?>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="telefono">Teléfono / Celular<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="telefono" name="telefono" placeholder="Teléfono celular" value="<?php echo $telefono_prospecto;?>">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="email">Email<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="email" name="email" placeholder="Email" value="<?php echo $email_prospecto;?>">
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="pais">País<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="pais" id="pais">
+      <option value="Seleccione">Seleccione</option>
+      <?php foreach($paises as $pais):?>
+        <option value="<?php echo $pais["id"];?>" <?php if($pais["seleccionado"]==1) echo "selected";?> ><?php echo $pais["nombre"];?></option>
+      <?php endforeach;?>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="estado">Estado<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="estado" name="estado" placeholder="Estado" value="<?php echo $estado_prospecto;?>">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="ciudad">Ciudad<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="ciudad" name="ciudad" placeholder="Ciudad" value="<?php echo $ciudad_prospecto;?>">
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="campana">Campaña<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="campana" id="campana">
+      <option value="Seleccione">Seleccione</option>
+      <?php foreach($campanas as $campana):?>
+        <option value="<?php echo $campana["id"];?>" <?php if($campana["seleccionado"]==1) echo "selected";?> ><?php echo $campana["nombre"];?></option>
+      <?php endforeach;?>
+    </select>
+  </div>
+
+  <div class="form-group col-md-6">
+    <label for="campana">Campaña<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="campana" id="campana">
+      <option value="Seleccione">Seleccione</option>
+      <?php foreach($segmentos as $segmento):?>
+        <option value="<?php echo $segmento["id"];?>" <?php if($segmento["seleccionado"]==1) echo "selected";?> ><?php echo $segmento["nombre"];?></option>
+      <?php endforeach;?>
+    </select>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="s_referencias">Sistemas de referencias<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="s_referencias" id="s_referencias">
+      <option>Seleccione</option>
+      <option value="1" <?php if($s_referencias==1) echo "selected";?>>Internas</option>
+      <option value="2" <?php if($s_referencias==2) echo "selected";?>>Externas</option>
+      <option value="3" <?php if($s_referencias==3) echo "selected";?>>Empresas</option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-12">
+    <label for="referencia_prospecto">Referencias<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="referencia_prospecto" id="referencia_prospecto">
+      <option>Seleccione</option>
+      <?php foreach($referencia_prospecto as $referencia):?>
+        <option value="<?php echo $referencia["id"]?>" <?php if($referencia["seleccionado"]==1) echo "selected"?>><?php echo $referencia["nombre"]?></option>
+      <?php endforeach;?>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-success">Guardar</button>
+</form>
