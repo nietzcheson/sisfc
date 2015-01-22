@@ -54,12 +54,12 @@
 	    }
 	    public function getCampanas()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM campanas ORDER BY nombre_campana ASC");
+	        $empresa = $this->_db->query("SELECT * FROM campanas ORDER BY campana ASC");
 			return $empresa->fetchAll();
 	    }
 	    public function getSegmentos()//
 	    {
-	        $empresa = $this->_db->query("SELECT * FROM segmentos ORDER BY nombre_segmento ASC");
+	        $empresa = $this->_db->query("SELECT * FROM segmentos ORDER BY segmento ASC");
 			return $empresa->fetchAll();
 	    }
 	    public function getInternos()//
@@ -167,7 +167,7 @@
 
 			public function empresasFC()
 			{
-				$empresas = $this->_db->query("SELECT id_empresa,nombre_empresa FROM empresas");
+				$empresas = $this->_db->query("SELECT id,empresa FROM empresas");
 
 				return $empresas->fetchAll();
 			}

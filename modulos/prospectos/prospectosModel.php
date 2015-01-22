@@ -11,13 +11,6 @@
 		}
 		public function getProspectos()//
 		{
-	    // $prospectos = $this->_db->query(
-			// "SELECT *
-			// FROM prospectos p LEFT JOIN calificacion_prospecto cp
-			// ON p.id_u_prospecto = cp.id_u_prospecto
-			// WHERE rol_prospecto = 'prospecto'
-			// ORDER BY nombre_prospecto
-			// ASC");
 
 			$prospectos = $this->_db->query("SELECT * FROM prospectos WHERE rol_prospecto='prospecto'");
 

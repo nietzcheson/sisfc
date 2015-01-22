@@ -292,28 +292,6 @@ class calificacionController extends Controller
 
       $this->_view->assign("barra_carga",$calificacion);
 
-
-
-      // $datosEnviar = array(
-      //   "id"                        => NULL,
-      //   "prospecto_id"              => $id_perfil,
-      //   "id_u_prospecto"            => NULL,
-      //   "importa_exporta"           =>$importa_exporta,
-      //   "padron"                    =>$padron,
-      //   "departamento"              =>$departamento,
-      //   "volumen"                   =>$volumen,
-      //   "volumen_carga"             =>$volumen_carga,
-      //   "listado"                   =>$listado,
-      //   "forzada"                   =>$forzada,
-      //   "explicacion_forzada"       =>$textarea_forzado,
-      //   "calificacion_porcentaje"   =>$calificacion,
-      //   "fecha_creacion"            =>DATE_NOW,
-      //   "creador"                   =>"",
-      //   "fecha_actualizacion"       =>"",
-      //   "actualizador"              =>"",
-      //   "tipo_consumo"              =>""
-      // );
-
       $mensaje_calificacion = "";
 
 
@@ -376,7 +354,7 @@ class calificacionController extends Controller
         if($calificacion>=60 || $forzada==1){
           $urlPerfil = "leads/perfil_lead";
           $datosEnviar = array(
-            "id_u_prospecto"            =>$id_perfil,
+            "id"            =>$id_perfil,
             "rol_prospecto"             =>"lead"
           );
 
@@ -384,7 +362,7 @@ class calificacionController extends Controller
         }else{
           $urlPerfil = "prospectos/perfil_prospecto";
           $datosEnviar = array(
-            "id_u_prospecto"            =>$id_perfil,
+            "id"            =>$id_perfil,
             "rol_prospecto"             =>"prospecto"
           );
 
