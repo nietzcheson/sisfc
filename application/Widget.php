@@ -33,6 +33,16 @@ abstract class Widget{
 
 	}
 
+	protected function getLibrary($libreria){
+
+		$rutalibreria = ROOT . 'libs' . DS . $libreria . '.php'; //crear la ruta hacia el archivo php en la librearia por defecto
+		if (is_readable($rutalibreria)) { //pregunta si el archivo de esa ruta esta disponible y ademas se puede leer
+			require_once $rutalibreria; //agrega al codigo el archivo php en cuestion
+		}else{
+			throw new Exception("Error de Libreria");
+		}
+	}
+
 	protected function getTexto($clave){ //permite pasar cualquier cadena de texto con racateres espaciales a la notacion de html
 
 		if (isset($_POST[$clave]) && !empty($_POST[$clave])) { //llego mediante post y ademas no esta vacio

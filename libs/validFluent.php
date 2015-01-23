@@ -11,13 +11,13 @@
  * andsoa77@gmail.com
  *
  * typical use:
- 
+
   	$valid = new ValidFluent($_POST);
- 
+
   	$valid->name('user_name')->required('You must choose a user name!')->alfa()->minSize(5);
- 
+
   	$valid->name('user_email')->required()->email();
- 
+
   	$valid->name('birthdate')->date('please enter date in YYYY-MM-DD format');
 
  	if ($valid->isGroupValid())
@@ -25,20 +25,20 @@
 
  * //////////////////////////////////////
  * OR
- * 
+ *
 	 $valid = new ValidFluent($_POST);
- 
+
   	if (  $valid->name('user_name')->required('You must choose a user name!')->alfa()->minSize(5)
   		    ->name('user_email')->required()->email()
   		    ->name('birthdate')->date('please enter date in YYYY-MM-DD format')
   		    ->isGroupValid() )
   	    echo 'Validation passed!';
- 
- 
+
+
  * //////////////////////////////////////////////////////////////////
  *    On HTML
   <form method="POST">
- 
+
   	    <input type="text"   name="email"
   		   value="<?php echo $valid->getValue('email'); ?>" />
   	    <span class="error">
@@ -46,7 +46,7 @@
   	    </span>
   	    ...
   	    ...
- 
+
  * ///////////////////////////////////////////////////////////////////
  *  To create new validation rules!
 
@@ -334,7 +334,7 @@ class ValidFluent
      * ex: ->regex('/^[^<>]+$/', 'ERROR:  < and > arent valid characters')
      * @param string $regex a regular expresion '/regex/'
      * @param string $errorMsg
-     * @return ValidFluent 
+     * @return ValidFluent
      */
     function regex($regex, $errorMsg=NULL)
 	{
@@ -350,9 +350,9 @@ class ValidFluent
 
     /**
      *  ex: ->name('password')->equal('passwordConfirm' , 'passwords didnt match')
-     * @param string $value2 
+     * @param string $value2
      * @param string $errorMsg
-     * @return ValidFluent 
+     * @return ValidFluent
      */
     function equal($value2, $errorMsg=NULL)
 	{
@@ -431,7 +431,7 @@ class ValidFluent
 	    }
 	return $this;
 	}
-	
+
 	// same function, better spelled
 	function alpha($errorMsg=NULL)
 	{

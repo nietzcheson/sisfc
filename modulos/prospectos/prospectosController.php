@@ -80,9 +80,6 @@
 				);
 			}
 
-			echo "<pre>";print_r($prospecto);
-			exit();
-
 			$this->_view->setJs(array('ajax'));
 			$this->_view->assign('datos_perfil', ROOT . 'componentes/perfilcliente/datos.tpl');
 			$this->_view->assign('datos_calificacion', ROOT . 'componentes/perfilcliente/datosCalificacion.tpl');

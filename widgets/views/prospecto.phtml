@@ -1,9 +1,23 @@
+<?php if($_errores!=""):?>
+<div class="alert alert-warning fade in" id="alert-template">
+  <!--<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+
+  <ul>
+    <li>
+      - <strong><?php echo $_error;?></strong>
+    </li>
+  </ul>
+</div>
+<?php endif;?>
+
+
+
 <form role="form" method="POST" action="">
   <input type="hidden" name="prospecto_lead" value="1" />
 
   <div class="form-group col-md-12">
-    <label for="nombre_prospecto">Empresas<span class="obligatorio">*</span></label>
-    <select data-placeholder="Seleccione la empresa" style="width:100%;" multiple class="form-control chosen-select" name="empresas[]">
+    <label for="empresa">Empresas<span class="obligatorio">*</span></label>
+    <select data-placeholder="Seleccione la empresa" style="width:100%;" class="form-control chosen-select" name="empresa">
       <?php echo count($empresas);?>
       <?php foreach($empresas as $empresa): ?>
       <option value="<?php echo $empresa["id"];?>" <?php if($empresa["seleccionado"]==1) echo "selected";?>><?php echo $empresa["nombre"];?></option>
@@ -12,17 +26,17 @@
   </div>
 
   <div class="form-group col-md-6">
-    <label for="nombre_prospecto">Nombre Prospecto<span class="obligatorio">*</span></label>
-    <input type="text" class="form-control input-lg" id="nombre_prospecto" name="nombre_prospecto" placeholder="Nombre del Prospecto" value="<?php echo $nombre_prospecto;?>">
+    <label for="nombre">Nombre Prospecto<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="nombre" name="nombre" placeholder="Nombre del Prospecto" value="<?php echo $nombre_prospecto;?>">
   </div>
   <div class="form-group col-md-6">
-    <label for="apellido_prospecto">Apellido Prospecto<span class="obligatorio">*</span></label>
-    <input type="text" class="form-control input-lg" id="apellido_prospecto" name="apellido_prospecto" placeholder="Apellido del Prospecto" value="<?php echo $apellido_prospecto;?>">
+    <label for="apellido">Apellido Prospecto<span class="obligatorio">*</span></label>
+    <input type="text" class="form-control input-lg" id="apellido" name="apellido" placeholder="Apellido del Prospecto" value="<?php echo $apellido_prospecto;?>">
   </div>
 
   <div class="form-group col-md-12">
-    <label for="apellido_prospecto">Estatus<span class="obligatorio">*</span></label>
-    <select class="form-control input-lg" name="id_estatus" id="id_estatus">
+    <label for="estatus">Estatus<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="estatus" id="estatus">
       <option value="Seleccione">Seleccione</option>
       <?php foreach($estatus as $estatu):?>
       <option value="<?php echo $estatu["id"];?>" <?php if($estatu["seleccionado"]==1) echo "selected";?> ><?php echo $estatu["nombre"];?></option>
@@ -69,8 +83,8 @@
   </div>
 
   <div class="form-group col-md-6">
-    <label for="campana">Campaña<span class="obligatorio">*</span></label>
-    <select class="form-control input-lg" name="campana" id="campana">
+    <label for="segmento">Segmentos<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="segmento" id="segmento">
       <option value="Seleccione">Seleccione</option>
       <?php foreach($segmentos as $segmento):?>
         <option value="<?php echo $segmento["id"];?>" <?php if($segmento["seleccionado"]==1) echo "selected";?> ><?php echo $segmento["nombre"];?></option>
@@ -89,8 +103,8 @@
   </div>
 
   <div class="form-group col-md-12">
-    <label for="referencia_prospecto">Referencias<span class="obligatorio">*</span></label>
-    <select class="form-control input-lg" name="referencia_prospecto" id="referencia_prospecto">
+    <label for="referencia">Referencias<span class="obligatorio">*</span></label>
+    <select class="form-control input-lg" name="referencia" id="referencia">
       <option>Seleccione</option>
       <?php foreach($referencia_prospecto as $referencia):?>
         <option value="<?php echo $referencia["id"]?>" <?php if($referencia["seleccionado"]==1) echo "selected"?>><?php echo $referencia["nombre"]?></option>
