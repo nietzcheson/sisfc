@@ -71,6 +71,7 @@
 			$this->updateSchemaToFKey("prospectos",false,"campana_prospecto", "campana_id");
 			$this->updateSchemaToFKey("prospectos",false,"id_estatus", "estatus_ventas_id");
 			$this->updateSchemaToFKey("calificacion_prospecto",array("tabla"=>"prospectos", "col" => "id_u_prospecto"),"id_u_prospecto", "prospecto_id");
+			$this->updateSchemaToFKey("contacto_lead",array("tabla"=>"prospectos", "col" => "id_u_prospecto"),"id_u_prospecto", "prospecto_id");
 
 
 			return $this->_table;

@@ -3,30 +3,32 @@ $(document).ready(function() {
   var getInternas = function(){
     $.post(_root_+'/leads/getInternas','interna=1',function(datos){
       for(var i = 0; i < datos.length; i++){
-        $("#referencia").append('<option value="' + datos[i].id + '">' + datos[i].nombre+'</option>');
+        $("#referencia_prospecto").append('<option value="' + datos[i].id + '">' + datos[i].nombre+'</option>');
       }
-      $('#referencia').removeAttr('disabled');
+      $('#referencia_prospecto').removeAttr('disabled');
     }, 'json');
   }
 
   var getExternas = function(){
-    $("#referencia").append('<option value="x">No referenciado</option>');
-    $('#referencia').removeAttr('disabled');
+    $("#referencia_prospecto").append('<option value="x">No referenciado</option>');
+    $('#referencia_prospecto').removeAttr('disabled');
   }
 
   var getEmpresas = function(){
-    $.post(server+'/leads/getEmpresas','empresa=1',function(datos){
+    $.post(_root_+'/leads/getEmpresas','empresa=1',function(datos){
       for(var i = 0; i < datos.length; i++){
-        $("#referencia").append('<option value="' + datos[i].id + '">' + datos[i].cliente + '</option>');
+        $("#referencia_prospecto").append('<option value="' + datos[i].id + '">' + datos[i].cliente + '</option>');
       }
-      $('#referencia').removeAttr('disabled');
+      $('#referencia_prospecto').removeAttr('disabled');
     }, 'json');
   }
 
+
+
   $("#s_referencias").change(function(){
 
-    $("#referencia").html('');
-    $("#referencia").append('<option>Seleccione</option>');
+    $("#referencia_prospecto").html('');
+    $("#referencia_prospecto").append('<option>Seleccione</option>');
     //$('#referencia_prospecto').attr('disabled','-1')
     if ($("#s_referencias").val()=="1"){
       getInternas();

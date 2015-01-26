@@ -96,8 +96,22 @@
 
 		public function perfil_lead($id = false)
 		{
-			$this->_view->setJs(array('ajax'));
 			$prospecto = $this->_view->widget('prospecto', 'getProspecto',array($id));
+
+			$this->_view->assign('titulo','Perfil del lead');
+			$btnHeader = array(
+				array(
+					"titulo" => "return",
+					"enlace" => "leads"
+				),
+				array(
+					"titulo" => "Calificación",
+					"enlace" => "calificacion/calificar/".$id."/2",
+					"estilo"  => "danger"
+				)
+			);
+			$this->_view->assign("btnHeader",$btnHeader);
+			
 
 			$this->_view->assign("prospecto",$prospecto);
 			$this->_view->renderizar('perfil_lead', "clientes");

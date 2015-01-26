@@ -25,7 +25,7 @@ class prospectoWidget extends Widget
 
     switch($prospecto["s_referencias"]){
       case 1:
-      $prospecto["referencia_prospecto"] = $this->datosSelects(array("tabla"=>"usuarios","celda"=> "usuario"), array("tabla"=>"prospectos", "celda"=>"referencia_prospecto", "celdaId"=>"id"), $id);
+      $prospecto["referencia_prospecto"] = $this->datosSelects(array("tabla"=>"usuarios","celda"=> "nombre"), array("tabla"=>"prospectos", "celda"=>"referencia_prospecto", "celdaId"=>"id"), $id);
         break;
       case 2:
       $prospecto["referencia_prospecto"] = array("id" => "x","nombre" => "No referenciado","seleccionado" => 1);
@@ -35,29 +35,33 @@ class prospectoWidget extends Widget
         break;
     }
 
+    $prospecto["calificacion"] = $this->_modelo->getCalificacion($id);
+    $prospecto["contacto"] = $this->_modelo->getInformacion($id);
+
     $this->getLibrary('validFluent');
 
     $valid = new ValidFluent($_POST);
 
-    $valid->name('empresa')->required('Tiene que seleccionar una empresa')->alfa();
-    $valid->name('nombre')->required('El nombre del prospecto es obligatorio')->alfa()->minSize(5);
-    $valid->name('apellido')->required('El apellido del prospecto es obligatorio')->alfa()->minSize(5);
-    $valid->name('estatus')->required('El estatus es obligatorio')->numberInteger();
-    $valid->name('telefono')->required('El teléfono es requerido')->alfa();
-    $valid->name('email')->required('El email es requerido')->email();
-    $valid->name('pais')->required('El país es obligatorio')->alfa();
-    $valid->name('estado')->required('El Estado es obligatorio')->alfa();
-    $valid->name('ciudad')->required('La ciudad es obligatoria')->alfa();
-    $valid->name('campana')->required('Seleccione una campaña')->alfa();
-    $valid->name('segmento')->required('Seleccione un segmento')->alfa();
-    $valid->name('s_referencias')->required('Seleccione el sistema de referencias')->alfa();
-    $valid->name('referencia')->required('Seleccione una referencia')->alfa();
+    // $valid->name('empresa')->required('Tiene que seleccionar una empresa');
+    // $valid->name('nombre')->required('El nombre del prospecto es obligatorio');
+    // $valid->name('apellido')->required('El apellido del prospecto es obligatorio');
+    // $valid->name('estatus')->required('El estatus es obligatorio');
+    // $valid->name('telefono')->required('El teléfono es requerido');
+    // $valid->name('email')->required('El email es requerido');
+    // $valid->name('pais')->required('El país es obligatorio');
+    // $valid->name('estado')->required('El Estado es obligatorio');
+    // $valid->name('ciudad')->required('La ciudad es obligatoria');
+    // $valid->name('campana')->required('Seleccione una campaña');
+    // $valid->name('segmento')->required('Seleccione un segmento');
+    // $valid->name('s_referencias')->required('Seleccione el sistema de referencias');
+    // $valid->name('referencia')->required('Seleccione una referencia');
 
 
     $mensaje = "Los datos han sido actualizados";
     $_error = "";
 
     if($this->getInt("prospecto_lead")==1){
+
       if($valid->isGroupValid()){
 
         $datosEnviar = array(
@@ -78,14 +82,8 @@ class prospectoWidget extends Widget
           "referencia_prospecto" => (int) $valid->getValue("referencia")
         );
 
-
         $actualizar = $this->_modelo->actualizar($datosEnviar);
-
-
         $prospecto = $this->_modelo->getProspecto($id);
-
-
-
 
         if($prospecto["rol_prospecto"]=="prospecto"){
           $this->redireccionar("prospectos/perfil_prospecto/".$id);
@@ -94,7 +92,6 @@ class prospectoWidget extends Widget
 
         $this->redireccionar("leads/perfil_lead/".$id);
         exit();
-
 
       }else{
 
@@ -112,6 +109,45 @@ class prospectoWidget extends Widget
         $_error[] = $valid->getError("s_referencia");
         $_error[] = $valid->getError("referencia");
       }
+    }
+
+    if($this->getInt("contacto_lead")==1){
+
+      $datosEnviar = array(
+        "id" => $valid->getValue("id_informacion"),
+        "prospecto_id" => $id,
+        "id_u_prospecto" => "",
+        "telefonica_lead" => (int) $valid->getValue("telefonica_lead"),
+        "personal_lead" => (int) $valid->getValue("personal_lead"),
+        "email_lead" => (int) $valid->getValue("email_lead"),
+        "informacion_general" => $valid->getValue("informacion_general"),
+        "compromiso_ace" => $valid->getValue("compromiso_ace"),
+        "compromiso_lead" => $valid->getValue("compromiso_lead")
+      );
+
+      if($prospecto["contacto"]==""){
+
+        $datosEnviar = array(
+          "id" => NULL,
+          "prospecto_id" => $id,
+          "id_u_prospecto" => "",
+          "telefonica_lead" => (int) $valid->getValue("telefonica_lead"),
+          "personal_lead" => (int) $valid->getValue("personal_lead"),
+          "email_lead" => (int) $valid->getValue("email_lead"),
+          "informacion_general" => $valid->getValue("informacion_general"),
+          "compromiso_ace" => $valid->getValue("compromiso_ace"),
+          "compromiso_lead" => $valid->getValue("compromiso_lead")
+        );
+
+        $this->_modelo->setInformacionContacto($datosEnviar);
+        $this->redireccionar("leads/perfil_lead/".$id);
+        exti();
+      }
+
+      $this->_modelo->actualizarInformacionContacto($datosEnviar);
+      $this->redireccionar("leads/perfil_lead/".$id);
+      exit();
+
     }
 
     return $this->render("prospecto",$prospecto);

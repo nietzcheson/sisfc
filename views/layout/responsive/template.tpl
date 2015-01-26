@@ -136,6 +136,8 @@
             var _root_ = '{$_layoutParams.root}';
         </script>
 
+        <script src="{$_layoutParams.ruta_js}prospectos.js"></script>
+        <script src="{$_layoutParams.ruta_js}contacto_lead.js"></script>
         <script src="{$_layoutParams.ruta_js}funciones.js"></script>
 
         {if isset($_layoutParams.js) && count($_layoutParams.js)}

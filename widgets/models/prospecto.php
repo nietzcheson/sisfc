@@ -41,6 +41,29 @@ class prospectoModelWidget extends Model
   {
     $this->insertarSQL($datosEnviar,"empresas_prospectos");
   }
+
+  public function getCalificacion($id)
+  {
+    $calificacion = $this->_db->query("SELECT * FROM calificacion_prospecto WHERE prospecto_id = '$id'");
+    return $calificacion->fetch();
+  }
+
+  public function getInformacion($id)
+  {
+    $informacion = $this->_db->query("SELECT * FROM contacto_lead WHERE prospecto_id='$id'");
+
+    return $informacion->fetch();
+  }
+
+  public function setInformacionContacto($datosEnviar)
+  {
+    $this->insertarSQL($datosEnviar,"contacto_lead");
+  }
+
+  public function actualizarInformacionContacto($datosEnviar)
+  {
+    $this->actualizarSQL($datosEnviar,"contacto_lead");
+  }
 }
 
 
