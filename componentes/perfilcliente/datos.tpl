@@ -4,7 +4,8 @@
     <label for="nombre_prospecto">Seleccione la empresa<span class="obligatorio">*</span></label>
 
     {if isset($crear_prospecto)}
-    <select data-placeholder="Seleccione la empresa" style="width:100%;" multiple class="form-control chosen-select" name="empresas[]">
+    <select data-placeholder="Seleccione la empresa" style="width:100%;" class="form-control chosen-select" name="empresa">
+      <option>Seleccione</option>
       {if isset($empresas)}
       {foreach from=$empresas item=empresa}
       <option value="{$empresa.id}" {if $empresa.seleccionado==1}selected{/if}>{$empresa.empresa}</option>

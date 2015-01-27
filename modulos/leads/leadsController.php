@@ -111,7 +111,6 @@
 				)
 			);
 			$this->_view->assign("btnHeader",$btnHeader);
-			
 
 			$this->_view->assign("prospecto",$prospecto);
 			$this->_view->renderizar('perfil_lead', "clientes");

@@ -15,6 +15,17 @@ class prospectoModelWidget extends Model
     return $prospecto->fetch();
   }
 
+  public function crearProspecto($datosEnviar)
+  {
+    $crearProspecto = $this->insertarSQL($datosEnviar,"prospectos");
+  }
+
+  public function ultimoID()
+  {
+    $lastId = $this->_db->query("SELECT id FROM prospectos ORDER BY id DESC LIMIT 1");
+    return $lastId->fetch();
+  }
+
   public function getArray1($tabla1)
   {
     $empresas = $this->_db->query("SELECT id,".$tabla1["celda"]." FROM ".$tabla1["tabla"]."");

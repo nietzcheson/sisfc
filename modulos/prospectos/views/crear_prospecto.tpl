@@ -1,1 +1,1 @@
-{include file=$datos_perfil}
+{$prospecto}

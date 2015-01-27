@@ -11,10 +11,12 @@ class prospectoWidget extends Widget
 
   }
 
-  public function getProspecto($id)
+  public function getProspecto($id = false)
   {
 
-    $prospecto = $this->_modelo->getProspecto($id);
+    if($id!=false){
+      $prospecto = $this->_modelo->getProspecto($id);
+    }
 
     $prospecto["empresas"] = $this->datosSelects(array("tabla"=>"empresas","celda"=> "empresa"), array("tabla"=>"prospectos", "celda"=>"empresa_id", "celdaId"=>"id"), $id);
     $prospecto["estatus"] = $this->datosSelects(array("tabla"=>"estatus_ventas","celda"=> "estatus"), array("tabla"=>"prospectos", "celda"=>"estatus_ventas_id", "celdaId"=>"id"), $id);
@@ -60,13 +62,95 @@ class prospectoWidget extends Widget
     $mensaje = "Los datos han sido actualizados";
     $_error = "";
 
+    // $datosEnviar = array(
+    //   "id" => NULL,
+    //   /**/ "pais_id" => 21,
+    //   /**/ "campana_id" => 1,
+    //   /**/ "segmento_id" => 1,
+    //   /**/ "estatus_ventas_id" => 8,
+    //   /**/ "empresa_id" => 1,
+    //   "rol_prospecto" => "prospecto",
+    //   "secs_pass" => "",
+    //   /**/ "primercontacto" => 1,
+    //   "nombre_prospecto" => "",
+    //   "apellido_prospecto" => "",
+    //   /**/ "id_estatus" => 1,
+    //   "telefono_prospecto" => "",
+    //   "celular_prospecto" => "",
+    //   "email_prospecto" => "",
+    //   "pais_prospecto" => "",
+    //   "estado_prospecto" => "",
+    //   "ciudad_prospecto" => "",
+    //   "origen_prospecto" => "",
+    //   "campana_prospecto" => "",
+    //   "segmento_prospecto" => "",
+    //   "s_referencias" => "",
+    //   "referencia_prospecto" => "",
+    //   "fecha_registro" => DATE_NOW,
+    //   "creador" => "",
+    //   "fecha_actualizacion" => "",
+    //   "actualizador" => ""
+    // );
+    //
+    // $this->_modelo->crearProspecto($datosEnviar);
+    //
+    // exit("Almacenando");
+
+    $ultimoID = $this->_modelo->ultimoID();
+
     if($this->getInt("prospecto_lead")==1){
+
+      if($id == false){
+
+        $datosEnviar = array(
+          "id" => NULL,
+          /**/ "pais_id" => (int) $valid->getValue("pais"),
+          /**/ "campana_id" => (int) $valid->getValue("campana"),
+          /**/ "segmento_id" => (int) $valid->getValue("segmento"),
+          /**/ "estatus_ventas_id" => (int) $valid->getValue("estatus"),
+          /**/ "empresa_id" => (int) $valid->getValue("empresa"),
+          "rol_prospecto" => "prospecto",
+          "secs_pass" => "",
+          /**/ "primercontacto" => 1,
+          "nombre_prospecto" => $valid->getValue("nombre"),
+          "apellido_prospecto" => $valid->getValue("apellido"),
+          /**/ "id_estatus" => 1,
+          "telefono_prospecto" => $valid->getValue("telefono"),
+          "celular_prospecto" => $valid->getValue("celular"),
+          "email_prospecto" => $valid->getValue("email"),
+          "pais_prospecto" => "",
+          "estado_prospecto" => $valid->getValue("estado"),
+          "ciudad_prospecto" => $valid->getValue("ciudad"),
+          "origen_prospecto" => $valid->getValue("origen"),
+          "campana_prospecto" => "",
+          "segmento_prospecto" => "",
+          "s_referencias" => $valid->getValue("s_referencias"),
+          "referencia_prospecto" => $valid->getValue("referencia_prospecto"),
+          "fecha_registro" => DATE_NOW,
+          "creador" => "",
+          "fecha_actualizacion" => "",
+          "actualizador" => ""
+        );
+
+        $this->_modelo->crearProspecto($datosEnviar);
+
+        $lastID = $this->_modelo->ultimoID();
+
+        if($ultimoID["id"] != $lastID["id"]){
+          $this->redireccionar("prospectos/perfil_prospecto/".$lastID["id"]);
+          exit();
+        }
+
+        $this->redireccionar("prospectos/crear_prospecto");
+        exit();
+      }
+
 
       if($valid->isGroupValid()){
 
         $datosEnviar = array(
-          "id" => $id,
-          "pais_id" => $valid->getValue("pais"),
+          "id" => (int) $id,
+          "pais_id" => (int) $valid->getValue("pais"),
           "campana_id" => (int) $valid->getValue("campana"),
           "segmento_id" => (int) $valid->getValue("segmento"),
           "estatus_ventas_id" => (int) $valid->getValue("estatus"),
