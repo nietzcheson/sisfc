@@ -58,7 +58,7 @@
 			$this->_view->assign("activo",$activo);
 			$this->_view->assign("identifica",$id);
 
-			$this->_view->assign("referencias",$this->_clientes->getReferencias($id));
+			//$this->_view->assign("referencias",$this->_clientes->getReferencias($id));
 
 			if ($this->getInt('actualizar1')=="1")
 			{
@@ -98,10 +98,10 @@
 					exit;
 				}
 				$datosEnviar = array(
-					"id_u_marca" => $id,
+					"id" => $id,
 					"estado" => $estado,
 					"email" => $email,
-					"nombre_marca" => $nombre_marca,
+					"cliente" => $nombre_marca,
 					"web" => $web,
 					"telefono1" => $telefono1,
 					"telefono2" => $telefono2,

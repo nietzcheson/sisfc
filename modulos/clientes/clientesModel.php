@@ -8,7 +8,7 @@
 		}
 		public function getClientes() //
 		{
-	    	$Cliente = $this->_db->query("SELECT * FROM marcas ORDER BY nombre_marca ASC");
+	    	$Cliente = $this->_db->query("SELECT * FROM marcas ORDER BY cliente ASC");
 			return $Cliente->fetchAll();
 	    }
 	    public function getLeads() //
@@ -18,14 +18,14 @@
 	    }
 	    public function getMarca($id)
 		{
-	    	$Cliente = $this->_db->query("SELECT * FROM marcas WHERE id_u_marca = '$id' ");
+	    	$Cliente = $this->_db->query("SELECT * FROM marcas WHERE id = '$id' ");
 			return $Cliente->fetch();
 	    }
 	    public function getMarcaCliente($id)
 		{
 			$Cliente = $this->_db->query(
 	       		"SELECT u.*,r.* FROM marcas_clientes u, prospectos r " .
-	       		"WHERE u.id_u_cliente = r.id_u_prospecto AND u.id_u_marca = '$id'"
+	       		"WHERE u.prospecto_id = r.id AND u.id = '$id'"
 	       		);
 			return $Cliente->fetchAll();
 	    }
@@ -208,20 +208,6 @@
         	return $usuarios_sisfc->fetch();
 		}
 
-		public function getReferencias($id){
-			$referencias = $this->_db->query("
-			SELECT *
-			FROM referencias r LEFT JOIN marcas m
-			ON r.cliente = m.id_u_marca
-			LEFT JOIN estatus st
-			ON r.status = st.id
-			LEFT JOIN usuarios_sisfc u
-			ON r.eta = u.id_u_usuario
-			WHERE cliente = '$id'
-			");
-
-			return $referencias->fetchAll(PDO::FETCH_ASSOC);
-		}
 
 		public function getOperaciones($cliente){
 			$operaciones = $this->_db->query("SELECT id_u_referencia FROM referencias WHERE cliente='$cliente'");

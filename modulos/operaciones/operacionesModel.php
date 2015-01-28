@@ -91,7 +91,7 @@
 			$referencias = $this->_db->query("
 			SELECT *
 			FROM referencias
-			WHERE id_u_referencia = '$id'
+			WHERE id = '$id'
 			");
 			return $referencias->fetch();
 		}
@@ -99,7 +99,7 @@
 		public function getMarcas(){
 			$marcas = $this->_db->query("
 			SELECT *
-			FROM marcas ORDER BY nombre_marca ASC
+			FROM marcas ORDER BY cliente ASC
 			");
 			return $marcas->fetchAll();
 		}

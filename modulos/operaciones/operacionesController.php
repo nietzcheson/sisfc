@@ -931,7 +931,7 @@
 			if ($moneda_referencia==3) {
 				$valor1=$datos_referencia["tc_pe"];
 			}
-			
+
 			for($i=0; $i < count($cxc); $i++){
 				$valor2=1;
 				if ($cxc[$i]["moneda"]==2) {

@@ -10,7 +10,7 @@
 						<option>Seleccione</option>
 						{if isset($leads) && count($leads)>=1}
 							{foreach item=tipo from=$leads}
-								<option value="{$tipo.id_u_prospecto}" {if isset($datos)}{if $tipo.id_u_prospecto== $datos.id_u_prospecto} selected="selected" {/if}{/if}>{$tipo.nombre_prospecto} {$tipo.apellido_prospecto}</option>
+								<option value="{$tipo.id}" {if isset($datos)}{if $tipo.id_u_prospecto== $datos.id_u_prospecto} selected="selected" {/if}{/if}>{$tipo.nombre_prospecto} {$tipo.apellido_prospecto}</option>
 							{/foreach}
 						{else}
 							<option>No existen leads</option>

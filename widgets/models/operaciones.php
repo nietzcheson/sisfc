@@ -11,7 +11,7 @@ class operacionesModelWidget extends Model
 	public function getReferencias($empresa)
 	{
 		$operaciones = $this->_db->query(
-		"SELECT r.*, m.nombre_marca, mon.n_espanol, u.nombre_usuario, p.nombre_prospecto,apellido_prospecto
+		"SELECT r.*, m.cliente, mon.n_espanol, u.nombre_usuario, p.nombre_prospecto,apellido_prospecto
 		FROM referencias r LEFT JOIN marcas m
 		ON r.cliente = m.id_u_marca
 		LEFT JOIN monedas mon

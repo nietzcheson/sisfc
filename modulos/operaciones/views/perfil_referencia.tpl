@@ -32,7 +32,7 @@
               {if $datos.tipo_cliente==1}
                 {if isset($marcas) && count($marcas)>=1}
                   {foreach item=tipo from=$marcas}
-                    <option value="{$tipo.id_u_marca}" {if isset($datos.cliente)}{if $tipo.id_u_marca== $datos.cliente} selected="selected" {/if}{/if}>{$tipo.nombre_marca}</option>
+                    <option value="{$tipo.id_u_marca}" {if isset($datos.cliente)}{if $tipo.id_u_marca== $datos.cliente} selected="selected" {/if}{/if}>{$tipo.cliente}</option>
                   {/foreach}
                 {else}
                   <option>No existen clientes</option>

@@ -24,7 +24,7 @@
                   </div>
                   <div class="form-group col-md-12">
                     <label for="nombre_marca">Nombre (Empresa o compañía)<span class="obligatorio">*</span></label>
-                    <input type="text" class="form-control input-lg" id="nombre_marca" name="nombre_marca" placeholder="Nombre (Empresa o compañía y/o persona física)" value="{$datos.nombre_marca|default:''}">
+                    <input type="text" class="form-control input-lg" id="nombre_marca" name="nombre_marca" placeholder="Nombre (Empresa o compañía y/o persona física)" value="{$datos.cliente|default:''}">
                   </div>
                   <div class="form-group col-md-12">
                     <label for="email">Email general<span class="obligatorio">*</span></label>

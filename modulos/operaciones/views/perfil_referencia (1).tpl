@@ -15,7 +15,7 @@
 		<div class="tab-content">
 			<div class="tab-pane fade{if $activo==1} in active{/if}" id="informacion">
 
-{if isset($datos)}    
+{if isset($datos)}
 <div class="bloque">
   <form role="form" method="POST" action="">
     <input type="hidden" name="crear1" value="1" />
@@ -30,7 +30,7 @@
                 <option value="{$tipo.id_u_empresa}" {if isset($datos.id_u_empresa)}{if $tipo.id_u_empresa== $datos.id_u_empresa} selected="selected" {/if}{/if}>{$tipo.nombre_empresa}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -43,7 +43,7 @@
                 <option value="{$tipo.id_u_marca}" {if isset($datos.cliente)}{if $tipo.id_u_marca== $datos.cliente} selected="selected" {/if}{/if}>{$tipo.nombre_marca}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -57,7 +57,7 @@
                 <option value="{$tipo.id_u_marca}" {if isset($datos.cliente)}{if $tipo.id_u_marca== $datos.cliente} selected="selected" {/if}{/if}>{$tipo.nombre_prospecto} {$tipo.apellido_prospecto}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -70,7 +70,7 @@
                 <option value="{$tipo.codigo}" {if isset($datos.status)}{if $tipo.codigo == $datos.status} selected="selected" {/if}{/if}>{$tipo.nombre}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -83,7 +83,7 @@
                 <option value="{$tipo.id_u_usuario}" {if isset($datos.ace)}{if $tipo.id_u_usuario== $datos.ace} selected="selected" {/if}{/if}>{$tipo.nickname_usuario}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -96,7 +96,7 @@
                 <option value="{$tipo.id_u_usuario}" {if isset($datos.eta)}{if $tipo.id_u_usuario== $datos.eta} selected="selected" {/if}{/if}>{$tipo.nickname_usuario}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -109,7 +109,7 @@
                 <option value="{$tipo.id_moneda}" {if isset($datos.moneda)}{if $tipo.id_moneda== $datos.moneda} selected="selected" {/if}{/if}>{$tipo.n_espanol}</option>
               {/foreach}
             {else}
-              <option>No existen clasificaciones</option> 
+              <option>No existen clasificaciones</option>
             {/if}
           </select>
         </div>
@@ -136,7 +136,7 @@
         <div class="bloque">
             <a href="{$_layoutParams.root}operaciones/crear_orden/{$referencia}"><button type="button" class="btn btn-{$_layoutParams.btn_create}">Crear orden de compra</button></a>
         </div>
-        
+
         <div class="bloque">
           {if isset($ordenes)}
           <table class="table table-hover">
@@ -178,8 +178,8 @@
             <p class="lead">No se han creado órdenes de compra</p>
             {/if}
         </div>
-        
-        
+
+
       </div>
       <div class="tab-pane fade{if $activo==3} in active{/if}" id="razones_sociales">
          <div class="bloque">

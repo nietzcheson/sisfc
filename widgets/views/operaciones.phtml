@@ -37,7 +37,7 @@
 			<tr>
 					<td nowrap><?php echo $operacion["id_u_referencia"] ?></td>
 					<td nowrap><?php echo $operacion["n_espanol"] ?></td>
-					<td nowrap><?php echo $operacion["nombre_marca"] ?></td>
+					<td nowrap><?php echo $operacion["cliente"] ?></td>
 					<td class="text-center">
 						<span class="glyphicon glyphicon-user tooltip_info" data-toggle="tooltip" data-placement="left" title="<?php echo $operacion["co"] ?>"></span>
 					</td> <!--CO-->
@@ -63,7 +63,7 @@
 						</select>
 					<td class="col-md-4 text-center">
 						<div class="btn-group">
-								<a type="button" class="btn btn-default"  href="<?php echo BASE_URL;?>/operaciones/perfil_referencia/<?php echo $operacion["id_u_referencia"];?>">
+								<a type="button" class="btn btn-default"  href="<?php echo BASE_URL;?>/operaciones/perfil_referencia/<?php echo $operacion["id"];?>">
 									<span class="glyphicon glyphicon-eye-open"></span>
 								</a>
 							<button type="button" class="btn btn-default" id="b-eliminar_{$dato.id_u_referencia}">
